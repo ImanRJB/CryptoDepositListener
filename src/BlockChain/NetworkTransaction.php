@@ -1,6 +1,6 @@
 <?php
 
-namespace DepositListener\Src\NetworkTransaction;
+namespace DepositListener\BlockChain;
 
 class NetworkTransaction
 {
@@ -13,8 +13,8 @@ class NetworkTransaction
 
     public function getBlockTransactions($block)
     {
-        if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
-            $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
+        if (class_exists("DepositListener\\BlockChain\\" . $this->network)) {
+            $model = "DepositListener\\BlockChain\\" . $this->network;
             return $model::getBlockTransactions($block);
         }
 
@@ -23,8 +23,8 @@ class NetworkTransaction
 
     public function getTxConfirmationCount($txid)
     {
-        if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
-            $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
+        if (class_exists("DepositListener\\BlockChain\\" . $this->network)) {
+            $model = "DepositListener\\BlockChain\\" . $this->network;
             return $model::getTxConfirmationCount($txid);
         }
 

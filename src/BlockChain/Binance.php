@@ -1,15 +1,15 @@
 <?php
 
-namespace DepositListener\Src\NetworkTransaction;
+namespace DepositListener\BlockChain;
 
 use Mylesdc\LaravelEthereum\Facade\Ethereum as EthereumService;
 use Mylesdc\LaravelEthereum\Lib\JsonRPC;
 
-class Ethereum
+class Binance
 {
     public static function getBlockTransactions($block)
     {
-        $node = new JsonRPC(config('ethereum.host'), config('ethereum.port'));
+        $node = new JsonRPC(config('binance.host'), config('binance.port'));
         $block = $node->request('eth_getBlockByNumber', ['0x' . dechex($block), true])->result;
         $transactions = json_decode(json_encode($block->transactions), true);
 
@@ -19,13 +19,13 @@ class Ethereum
         $all_transactions = new Transactions();
         foreach ($transactions as $transaction) {
 
-            // ETH
+            // BNB
             if ($transaction['input'] == '0x') {
 
                 $all_transactions->addTransaction(
                     hexdec($transaction['blockNumber']),
                     $transaction['hash'],
-                    'eth',
+                    'BNB',
                     $transaction['from'],
                     $transaction['to'],
                     substr($transaction['value'], 2),
@@ -33,7 +33,7 @@ class Ethereum
                 );
 
             }
-            // ERC20 Tokens
+            // BEP20 Tokens
             else {
                 if (substr($transaction['input'], 0, 10) == '0xa9059cbb') {
 

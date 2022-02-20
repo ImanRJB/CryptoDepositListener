@@ -1,6 +1,6 @@
 <?php
 
-namespace DepositListener\Src\NetworkTransaction;
+namespace DepositListener\BlockChain;
 
 
 use BCMathExtended\BC;

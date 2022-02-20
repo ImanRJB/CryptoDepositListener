@@ -1,6 +1,6 @@
 <?php
 
-namespace DepositListener\Src;
+namespace DepositListener;
 
 use Illuminate\Support\ServiceProvider;
 

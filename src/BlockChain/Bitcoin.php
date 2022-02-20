@@ -1,6 +1,6 @@
 <?php
 
-namespace DepositListener\Src\NetworkTransaction;
+namespace DepositListener\BlockChain;
 
 use ImanRjb\BitcoinRpc\Services\BitcoinRpc\BitcoinRpc;
 
@@ -22,7 +22,7 @@ class Bitcoin
                     $all_transactions->addTransaction(
                         $block,
                         $transaction_detail['txid'],
-                        'btc',
+                        'BTC',
                         $transaction_detail['txid'],
                         $tx['scriptPubKey']['address'],
                         $tx['value'],
