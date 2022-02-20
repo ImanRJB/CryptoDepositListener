@@ -15,6 +15,9 @@ class DepositListenerServiceProvider extends ServiceProvider
         if (file_exists(__DIR__ . '/../src/config/ethereum.php')) {
             $this->mergeConfigFrom(__DIR__ . '/../src/config/ethereum.php', 'ethereum');
         }
+        if (file_exists(__DIR__ . '/../src/config/binance.php')) {
+            $this->mergeConfigFrom(__DIR__ . '/../src/config/binance.php', 'binance');
+        }
 
         $this->app->register(\Mylesdc\LaravelEthereum\EthereumServiceProvider::class);
     }
