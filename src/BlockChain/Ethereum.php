@@ -2,10 +2,11 @@
 
 namespace DepositListener\BlockChain;
 
+use BCMathExtended\BC;
 use Mylesdc\LaravelEthereum\Facade\Ethereum as EthereumService;
 use Mylesdc\LaravelEthereum\Lib\JsonRPC;
 
-class Ethereum
+class Ethereum implements BlockChainInterface
 {
     public static function getBlockTransactions($block)
     {
@@ -65,5 +66,43 @@ class Ethereum
             'count' => hexdec($last_block) -  hexdec($transaction['blockNumber']),
             'success' => isset($transaction['maxFeePerGas']) ? true : false
         ];
+    }
+    
+    public static function valueCalculator($value, $decimal)
+    {
+        return self::bcDecodeValue($value, $decimal);
+    }
+
+    private function bcDecodeValue($hex, $decimal = 18)
+    {
+        $num = $this->bchexdec($hex);
+        $num = str_pad($num, $decimal, 0, STR_PAD_LEFT);
+
+        $dec = substr($num, -$decimal);
+
+        $int = substr($num, 0, -$decimal);
+
+        $final = $int . '.' . $dec;
+
+        $final = rtrim($final, "0");
+        $final = rtrim($final, ".");
+
+        if (substr($final, 0, 1) === '.') {
+            return '0' . $final;
+        }
+
+        return $final;
+    }
+
+    private function bchexdec($hex)
+    {
+        $remainingDigits = substr($hex, 0, -1);
+        $lastDigitToDecimal = \hexdec(substr($hex, -1));
+
+        if (strlen($remainingDigits) === 0) {
+            return $lastDigitToDecimal;
+        }
+
+        return BC::add(BC::mul(16, $this->bchexdec($remainingDigits)), $lastDigitToDecimal, 0);
     }
 }

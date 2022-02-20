@@ -30,4 +30,14 @@ class NetworkTransaction
 
         throw new \ErrorException('Network not found');
     }
+
+    public function valueCalculator($value, $decimal)
+    {
+        if (class_exists("DepositListener\\BlockChain\\" . $this->network)) {
+            $model = "DepositListener\\BlockChain\\" . $this->network;
+            return $model::valueCalculator($value, $decimal);
+        }
+
+        throw new \ErrorException('Network not found');
+    }
 }

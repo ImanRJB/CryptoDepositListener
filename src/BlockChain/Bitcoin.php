@@ -4,7 +4,7 @@ namespace DepositListener\BlockChain;
 
 use ImanRjb\BitcoinRpc\Services\BitcoinRpc\BitcoinRpc;
 
-class Bitcoin
+class Bitcoin implements BlockChainInterface
 {
     public static function getBlockTransactions($block)
     {
@@ -39,10 +39,15 @@ class Bitcoin
     public static function getTxConfirmationCount($txid)
     {
         $transaction = BitcoinRpc::getrawtransaction($txid, true);
-        
+
         return [
             'count' => isset($transaction['confirmations']) ? $transaction['confirmations'] : 0,
             'success' => isset($transaction['confirmations']) ? true : false
         ];
+    }
+
+    public static function valueCalculator($value, $decimal)
+    {
+        return $value;
     }
 }
