@@ -4,7 +4,7 @@ namespace DepositListener\Src;
 
 use Illuminate\Support\ServiceProvider;
 
-class HDWalletServiceProvider extends ServiceProvider
+class DepositListenerServiceProvider extends ServiceProvider
 {
     public function register()
     {
