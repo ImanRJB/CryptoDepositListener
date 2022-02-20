@@ -39,9 +39,10 @@ class Bitcoin
     public static function getTxConfirmationCount($txid)
     {
         $transaction = BitcoinRpc::getrawtransaction($txid, true);
+        
         return [
-            'count' => $transaction['confirmations'],
-            'success' => true
+            'count' => isset($transaction['confirmations']) ? $transaction['confirmations'] : 0,
+            'success' => isset($transaction['confirmations']) ? true : false
         ];
     }
 }
