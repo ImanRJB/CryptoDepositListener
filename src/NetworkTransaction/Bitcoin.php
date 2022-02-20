@@ -6,7 +6,7 @@ use ImanRjb\BitcoinRpc\Services\BitcoinRpc\BitcoinRpc;
 
 class Bitcoin
 {
-    public static function getTransactions($block)
+    public static function getBlockTransactions($block)
     {
         $block_info = BitcoinRpc::getblockhash($block);
         $transactions = BitcoinRpc::getblock($block_info)['tx'];
@@ -34,5 +34,14 @@ class Bitcoin
         }
 
         return $all_transactions->getTransactions();
+    }
+
+    public static function getTxConfirmationCount($txid)
+    {
+        $transaction = BitcoinRpc::getrawtransaction($txid, true);
+        return [
+            'count' => $transaction['confirmations'],
+            'success' => true
+        ];
     }
 }

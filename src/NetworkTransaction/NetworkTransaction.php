@@ -15,7 +15,17 @@ class NetworkTransaction
     {
         if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
             $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
-            return $model::getTransactions($block);
+            return $model::getBlockTransactions($block);
+        }
+
+        throw new \ErrorException('Network not found');
+    }
+
+    public function getTxConfirmationCount($txid)
+    {
+        if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
+            $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
+            return $model::getTxConfirmationCount($txid);
         }
 
         throw new \ErrorException('Network not found');

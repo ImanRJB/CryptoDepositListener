@@ -7,7 +7,7 @@ use Mylesdc\LaravelEthereum\Lib\JsonRPC;
 
 class Ethereum
 {
-    public static function getTransactions($block)
+    public static function getBlockTransactions($block)
     {
         $node = new JsonRPC(config('ethereum.host'), config('ethereum.port'));
         $block = $node->request('eth_getBlockByNumber', ['0x' . dechex($block), true])->result;
@@ -52,5 +52,18 @@ class Ethereum
         }
 
         return $all_transactions->getTransactions();
+    }
+
+    public static function getTxConfirmationCount($txid)
+    {
+        $node = new JsonRPC(config('ethereum.host'), config('ethereum.port'));
+        $last_block = $node->request('eth_blockNumber')->result;
+        $transaction = $node->request('eth_getTransactionByHash', [$txid])->result;
+        $transaction = json_decode(json_encode($transaction), true);
+
+        return [
+            'count' => hexdec($last_block) -  hexdec($transaction['blockNumber']),
+            'success' => isset($transaction['maxFeePerGas']) ? true : false
+        ];
     }
 }
