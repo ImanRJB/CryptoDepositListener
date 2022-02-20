@@ -12,9 +12,9 @@ class DepositListenerServiceProvider extends ServiceProvider
         if (file_exists(__DIR__ . '/../src/config/bitcoind.php')) {
             $this->mergeConfigFrom(__DIR__ . '/../src/config/bitcoind.php', 'bitcoind');
         }
-
-//        $this->app->alias(\HdWallet\Src\Services\AddressGenerator\AddressGenerator::class, 'AddressGenerator');
-//        $this->app->alias(\HdWallet\Src\Services\PrivateKeyGenerator\PrivateKeyGenerator::class, 'PrivateKeyGenerator');
+        if (file_exists(__DIR__ . '/../src/config/ethereum.php')) {
+            $this->mergeConfigFrom(__DIR__ . '/../src/config/ethereum.php', 'ethereum');
+        }
 
         $this->app->register(\Mylesdc\LaravelEthereum\EthereumServiceProvider::class);
     }
