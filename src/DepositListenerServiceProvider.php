@@ -9,8 +9,8 @@ class DepositListenerServiceProvider extends ServiceProvider
     public function register()
     {
         // For load config files
-        if (file_exists(__DIR__ . '/../src/config/hd-wallet.php')) {
-            $this->mergeConfigFrom(__DIR__ . '/../src/config/hd-wallet.php', 'hd-wallet');
+        if (file_exists(__DIR__ . '/../src/config/bitcoind.php')) {
+            $this->mergeConfigFrom(__DIR__ . '/../src/config/bitcoind.php', 'bitcoind');
         }
 
 //        $this->app->alias(\HdWallet\Src\Services\AddressGenerator\AddressGenerator::class, 'AddressGenerator');

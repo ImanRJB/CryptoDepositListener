@@ -6,35 +6,33 @@ use ImanRjb\BitcoinRpc\Services\BitcoinRpc\BitcoinRpc;
 
 class Bitcoin
 {
-    public function getBlockOwnedTransactions($block)
+    public static function getOwnedTransactions($block)
     {
         $block_info = BitcoinRpc::getblockhash($block);
         $transactions = BitcoinRpc::getblock($block_info)['tx'];
 
-        $all_transactions = [];
+        $all_transactions = new Transactions();
         foreach ($transactions as $transaction) {
             $transaction_detail = BitcoinRpc::getrawtransaction($transaction, true);
 
             foreach ($transaction_detail['vout'] as $tx) {
 
-                if (isset($tx['scriptPubKey']['address'])) {
-                    $detail = [
-                        'block' => $block,
-                        'tx' => $transaction_detail['txid'],
-                        'contract' => 'btc',
-                        'from' => $transaction_detail['txid'],
-                        'to' => $tx['scriptPubKey']['address'],
-                        'value' => $tx['value'],
-                        'confirmation' => $transaction_detail['confirmations'],
-                    ];
+                if (isset($tx['scriptPubKey']['address']) and $tx['value'] > 0) {
 
-                    if ($tx['value'] > 0) {
-                        array_push($all_transactions, $detail);
-                    }
+                    $all_transactions->addTransaction(
+                        $block,
+                        $transaction_detail['txid'],
+                        'btc',
+                        $transaction_detail['txid'],
+                        $tx['scriptPubKey']['address'],
+                        $tx['value'],
+                        $transaction_detail['confirmations']
+                    );
+
                 }
             }
         }
 
-        return $all_transactions;
+        return $all_transactions->getTransactions();
     }
 }
