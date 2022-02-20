@@ -11,7 +11,7 @@ class NetworkTransaction
         $this->network = $network;
     }
 
-    public function getTransactions($block)
+    public function getBlockTransactions($block)
     {
         if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
             $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
