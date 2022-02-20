@@ -6,7 +6,7 @@ use ImanRjb\BitcoinRpc\Services\BitcoinRpc\BitcoinRpc;
 
 class Bitcoin
 {
-    public static function getOwnedTransactions($block)
+    public static function getTransactions($block)
     {
         $block_info = BitcoinRpc::getblockhash($block);
         $transactions = BitcoinRpc::getblock($block_info)['tx'];

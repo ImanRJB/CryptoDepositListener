@@ -11,11 +11,11 @@ class NetworkTransaction
         $this->network = $network;
     }
 
-    public function getOwnedTransactions($block)
+    public function getTransactions($block)
     {
         if (class_exists("DepositListener\\Src\\NetworkTransaction\\" . $this->network)) {
             $model = "DepositListener\\Src\\NetworkTransaction\\" . $this->network;
-            return $model::getOwnedTransactions($block);
+            return $model::getTransactions($block);
         }
 
         throw new \ErrorException('Network not found');
