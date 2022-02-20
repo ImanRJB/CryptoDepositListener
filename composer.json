@@ -6,12 +6,9 @@
     "type": "library",
     "require": {
         "imanrjb/bitcoin-rpc": "^0.1.0",
-        "illuminate/redis": "^8.78",
-        "imanrj/lumen-horizon": "^1.0",
         "kornrunner/keccak": "^1.1",
         "krowinski/bcmath-extended": "^6.0",
         "mylesdc/laravel-ethereum": "dev-master",
-        "predis/predis": "^1.1",
         "sop/asn1": "^4.1",
         "sop/crypto-types": "^0.3.0",
         "web3p/ethereum-tx": "^0.4.3"
@@ -25,10 +22,7 @@
     "autoload": {
         "psr-4": {
             "DepositListener\\Src\\": "src/"
-        },
-        "files": [
-            "src/helpers/functions.php"
-        ]
+        }
     },
     "config": {
         "platform-check": false
