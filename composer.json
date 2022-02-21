@@ -22,7 +22,10 @@
     "autoload": {
         "psr-4": {
             "DepositListener\\": "src/"
-        }
+        },
+        "files": [
+            "src/Helper/functions.php"
+        ]
     },
     "config": {
         "platform-check": false
