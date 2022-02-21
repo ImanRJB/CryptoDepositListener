@@ -126,8 +126,8 @@ return [
         'timeout' => false,
 
         'zeromq' => [
-            'host' => 'localhost',
-            'port' => 38332,
+            'host' => env('BITCOIND_HOST', 'localhost'),
+            'port' => env('BITCOIND_ZMQ_PORT', 8333),
         ],
     ],
 
