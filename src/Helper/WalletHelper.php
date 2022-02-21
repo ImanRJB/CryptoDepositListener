@@ -26,7 +26,7 @@ class WalletHelper
         }
     }
 
-    private function addBalance(Wallet $wallet)
+    private static function addBalance(Wallet $wallet)
     {
         DB::beginTransaction();
         $min_deposit = $wallet->currency->min_deposit;
@@ -55,7 +55,7 @@ class WalletHelper
         DB::commit();
     }
 
-    private function confirmDeposit(Wallet $wallet)
+    private static function confirmDeposit(Wallet $wallet)
     {
         DB::beginTransaction();
 
