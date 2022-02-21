@@ -67,6 +67,11 @@ class Ethereum implements BlockChainInterface
             'success' => isset($transaction['maxFeePerGas']) ? true : false
         ];
     }
+
+    public static function getTransaction($txid)
+    {
+        // TODO: Implement getTransaction() method.
+    }
     
     public static function valueCalculator($value, $decimal)
     {

@@ -68,6 +68,11 @@ class Binance implements BlockChainInterface
         ];
     }
 
+    public static function getTransaction($txid)
+    {
+        // TODO: Implement getTransaction() method.
+    }
+
     public static function valueCalculator($value, $decimal)
     {
         return self::bcDecodeValue($value, $decimal);

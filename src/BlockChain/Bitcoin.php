@@ -36,6 +36,31 @@ class Bitcoin implements BlockChainInterface
         return $all_transactions->getTransactions();
     }
 
+    public static function getTransaction($txid)
+    {
+        $transaction_detail = BitcoinRpc::getrawtransaction($txid, true);
+
+        $all_transactions = new Transactions();
+        foreach ($transaction_detail['vout'] as $tx) {
+
+            if (isset($tx['scriptPubKey']['address']) and $tx['value'] > 0) {
+
+                $all_transactions->addTransaction(
+                    0,
+                    $transaction_detail['txid'],
+                    'BTC',
+                    $transaction_detail['txid'],
+                    $tx['scriptPubKey']['address'],
+                    $tx['value'],
+                    isset($transaction_detail['confirmations']) ? $transaction_detail['confirmations'] : 0
+                );
+
+            }
+        }
+
+        return $all_transactions->getTransactions();
+    }
+
     public static function getTxConfirmationCount($txid)
     {
         $transaction = BitcoinRpc::getrawtransaction($txid, true);
