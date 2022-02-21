@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class WalletHelper
 {
-    public function addDeposit(Wallet $wallet, $network, $transaction)
+    public static function addDeposit(Wallet $wallet, $network, $transaction)
     {
         if (!$wallet->deposits()->whereTxid($transaction['tx'])->first()) {
 
@@ -26,7 +26,7 @@ class WalletHelper
         }
     }
 
-    public function addBalance(Wallet $wallet)
+    private function addBalance(Wallet $wallet)
     {
         DB::beginTransaction();
         $min_deposit = $wallet->currency->min_deposit;
@@ -55,7 +55,7 @@ class WalletHelper
         DB::commit();
     }
 
-    public function confirmDeposit(Wallet $wallet)
+    private function confirmDeposit(Wallet $wallet)
     {
         DB::beginTransaction();
 
@@ -73,9 +73,9 @@ class WalletHelper
         DB::commit();
     }
 
-    public function updateDeposits(Wallet $wallet)
+    public static function updateDeposits(Wallet $wallet)
     {
-        $this->addBalance($wallet);
-        $this->confirmDeposit($wallet);
+        self::addBalance($wallet);
+        self::confirmDeposit($wallet);
     }
 }
