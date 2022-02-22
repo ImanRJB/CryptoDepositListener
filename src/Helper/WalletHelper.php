@@ -32,7 +32,7 @@ class WalletHelper
         $min_deposit = $wallet->currency->min_deposit;
         $deposits = $wallet->deposits()
             ->where('deposited_at', null)
-            ->where('rejected_at', '!=', null)
+            ->where('rejected_at', null)
             ->where('confirmation_count', '>=', DB::raw('deposit_confirmation'))
             ->get();
 
@@ -62,7 +62,7 @@ class WalletHelper
 
         $deposits = $wallet->deposits()
             ->where('confirmed_at', null)
-            ->where('rejected_at', '!=', null)
+            ->where('rejected_at', null)
             ->where('confirmation_count', '>=', DB::raw('withdrawal_confirmation'))
             ->get();
 
